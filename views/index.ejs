@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO App</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://kit.fontawesome.com/8d8b4be0c6.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="center">
+        <h1>TODO App</h1>
+        <!--Form to take Input-->
+        <form action="/create-task" method="post">
+            <!--Description-->
+            <label for="name">Description</label>
+            <input required type="text" name="name" id="name" placeholder="What do u want to do?">
+            <div>
+                <!--Category-->
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="" selected>Select a category</option>
+                    <option value="work">Work</option>
+                    <option value="study">Study</option>
+                    <option value="family">Family</option>
+                    <option value="other">Other</option>
+                </select>
+                <!--Due Date-->
+                <label for="date">Due Date</label>
+                <input required type="date" name="date" id="date">
+            </div>
+            <!--Submit Button-->
+            <button type="submit">Add Task</button>
+            <!--Delete task which are completed-->
+            <button type="button" id="delete">Delete Tasks</button>
+        </form>
+        <!--List of Tasks-->
+        <div>
+            <ul class="listofTasks">
+                <% for(i of Task_list){ %>
+                    <li>
+                        <%= i.name %>
+                        <% if(i.category=="work" ){ %>
+                                <i class="fas fa-briefcase"></i>
+                        <% } else if(i.category=="study" ){ %>
+                                    <i class="fas fa-book-reader"></i>
+                        <% } else if(i.category=="family" ){ %>
+                                        <i class="fas fa-home"></i>
+                        <% } else if(i.category=="other" ){ %>
+                        <i class="fas fa-question"></i>
+                        <% } %>
+                        <%= i.date %>
+                    </li>
+                    <% } %>
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>

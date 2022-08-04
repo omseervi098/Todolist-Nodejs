@@ -1,0 +1,11 @@
+body{
+    margin: 0;
+    background-color: rgb(91, 91, 91);
+}
+.center {
+    margin: auto;
+    width: 60%;
+    border: 3px solid green;
+    padding: 10px;
+    background-color: azure;
+}
