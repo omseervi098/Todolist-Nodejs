@@ -31,9 +31,8 @@ app.get('/',(req,res)=>{
 });
 //setting path for adding task
 app.post('/create-task',(req,res)=>{
-    //console.log(req.body);
     Task.create({
-        name:req.body.name,
+        name:req.body.name.charAt(0).toUpperCase()+req.body.name.slice(1),
         category:req.body.category,
         date:(moment(req.body.date).format('ll')).toString(), 
         status:false
@@ -70,6 +69,29 @@ app.get('/delete-task',(req,res)=>{
         console.log('Task deleted successfully');
         return res.redirect('back');
     })
+})
+//Setting for sorting tasks
+app.get('/sort-by-date',(req,res)=>{
+    Task.find({},(err,tasks)=>{
+        if(err){
+            console.log('Error in fetching tasks from db');
+            return;
+        }
+        return res.render('index',{
+            Task_list:tasks
+        });
+    }).sort({date:1});
+})
+app.get('/sort-by-name',(req,res)=>{
+    Task.find({},(err,tasks)=>{
+        if(err){
+            console.log('Error in fetching tasks from db');
+            return;
+        }
+        return res.render('index',{
+            Task_list:tasks
+        });
+    }).sort({name:1});
 })
 //Listening to the port
 app.listen(port,(err)=>{

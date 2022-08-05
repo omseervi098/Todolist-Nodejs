@@ -53,6 +53,13 @@
         </form>
         <!--List of Tasks-->
         <div id="container">
+            <div class="dropdown">
+                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
+                <div id="myDropdown" class="dropdown-content">
+                  <a href="/sort-by-date">Sort By Date</a>
+                  <a href="/sort-by-name">Sort By Name</a>
+                </div>
+              </div> 
             <ul>
                 <% for(i of Task_list){ %>
                     <hr>
@@ -113,6 +120,7 @@
             </ul>
         </div>
     </div>
+    <script src="/js/home.js"></script>
 </body>
 
 </html>
