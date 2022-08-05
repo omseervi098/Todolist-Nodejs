@@ -24,9 +24,9 @@
                 <select name="category" id="category">
                     <option value="" selected>Select a category</option>
                     <option value="work">Work</option>
-                    <option value="study">Study</option>
+                    <option value="college">College</option>
                     <option value="family">Family</option>
-                    <option value="other">Other</option>
+                    <option value="personal">Personal</option>
                 </select>
                 <!--Due Date-->
                 <label for="date">Due Date</label>
@@ -35,29 +35,60 @@
             <!--Submit Button-->
             <button type="submit">Add Task</button>
             <!--Delete task which are completed-->
-            <button type="button" id="delete">Delete Tasks</button>
+            <button type="button" id="delete"><a href="/delete-task">Delete Tasks</a></button>
         </form>
         <!--List of Tasks-->
-        <div>
-            <ul class="listofTasks">
+        <div id="container">
+            <ul >
                 <% for(i of Task_list){ %>
-                    <li>
-                        <%= i.name %>
-                        <% if(i.category=="work" ){ %>
+                    <li >
+                        <div id="checkbox">
+                            <% if(i.status){ %>
+                                <a href="/update-task/?id=<%=i.id%>" class="completed"><i class="fa-solid fa-square-check"></i></a>
+                            <% } else{ %>
+                                <a href="/update-task/?id=<%=i.id%>"><i class="fa-solid fa-square"></i></a>
+                            <% } %>
+                        </div>
+                        <div id="date-name">
+                            <p><%= i.name %></p>
+                            <!--Converting date using moment-->
+                            <p><%= moment(i.date).format('ll'); %></p>
+                        </div>
+                        <div id="priority">
+                            <% if(i.category=="work" ){ %>
+                                <div class="work">
+                                    <p>Work</p>
                                 <i class="fas fa-briefcase"></i>
-                        <% } else if(i.category=="study" ){ %>
-                                    <i class="fas fa-book-reader"></i>
-                        <% } else if(i.category=="family" ){ %>
-                                        <i class="fas fa-home"></i>
-                        <% } else if(i.category=="other" ){ %>
-                        <i class="fas fa-question"></i>
-                        <% } %>
-                        <%= i.date %>
+                                </div>
+                            <% } else if(i.category=="college" ){ %>
+                                <div class="college">
+                                    <p>College</p>
+                                <i class="fas fa-book-reader"></i>
+                                </div>
+                            <% } else if(i.category=="family" ){ %>
+                                <div class="family">
+                                    <p>Family</p>
+                                <i class="fas fa-home"></i>
+                                </div>
+                            <% } else if(i.category=="personal" ){ %>
+                                <div class="personal">
+                                    <p>Personal</p>
+                                    <i class="fa-solid fa-person"></i>
+                                </div>
+                            <% } %>
+                        </div>
                     </li>
                     <% } %>
             </ul>
         </div>
     </div>
+    <script>
+        //Function to convert date into specifed format
+        function convertDate(date) {
+            var date = new Date(date);
+            return date.toDateString();
+        }
+    </script>
 </body>
 
 </html>

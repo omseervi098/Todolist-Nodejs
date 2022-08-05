@@ -9,3 +9,66 @@ body{
     padding: 10px;
     background-color: azure;
 }
+
+/* Css to list of Tasks */
+#container{
+    width: 100%;
+    margin: auto;
+}
+#container > ul{
+    list-style: none;
+    margin-left:-15px;
+}
+#container > ul > li{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content:flex-start;
+    position: relative;
+    gap: 10px;
+}
+a,  a:hover, a:visited, a:active, a:focus{
+    text-decoration: none;
+    color: inherit;
+} 
+#date-name{
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0;
+}
+#date-name p{
+    margin: 0;
+    padding: 0;
+}
+#priority{
+    position: absolute;
+    right:10px;
+    margin-top:3px;
+}
+/* Css to Category section for ith list*/
+#priority div{
+    width:100px;
+    height:30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+}
+#priority div>p{
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+.work {
+    background-color: blue;
+}
+.college{
+    background-color: green;
+}
+.family{
+    background-color: red;
+}
+.personal{
+    background-color: yellow;
+}

@@ -1,11 +1,12 @@
 const express=require('express');
+const moment=require('moment');
 const app=express();
 const port=3000;
 //datastucture to store list of tasks
 var taskList=[
-    {name:'Why not to add task?',status:false,category:'Work',date:'May 1, 2022'},
-    {name:'Lets make TODO App',status:false,category:'College',date:'May 1, 2022'},
-    {name:'Get vegetables',status:false,category:'Personal',date:'May 1, 2022'},
+    {id:1,name:'Why not to add task?',status:true,category:'work',date:'May 1, 2022'},
+    {id:2,name:'Lets make TODO App',status:false,category:'college',date:'May 1, 2022'},
+    {id:3,name:'Get vegetables',status:true,category:'family',date:'May 1, 2022'},
 ];
 //setting view engine to ejs
 app.set('view engine','ejs');
@@ -16,12 +17,17 @@ app.use(express.urlencoded());
 app.use(express.static('./assets'));
 //setting root path
 app.get('/',(req,res)=>{
-    res.render('index',{Task_list:taskList});
+    //console.log(taskList[0]);
+    res.render('index',{
+        Task_list:taskList,
+        moment:moment
+    });
 });
 //setting path for adding task
 app.post('/create-task',(req,res)=>{
-    console.log(req.body);
+    //console.log(req.body);
     taskList.push({
+        id:taskList.length+1,
         name:req.body.name,
         category:req.body.category,
         date:req.body.date,
@@ -29,6 +35,24 @@ app.post('/create-task',(req,res)=>{
     });
     return res.redirect('/');
 });
+//setting path for marking task as done
+app.get('/update-task',(req,res)=>{
+    //console.log(req.query.id);
+    taskList.forEach(task=>{
+        if(task.id==req.query.id){  
+            task.status=!task.status;
+        }
+    });
+    return res.redirect('/');
+})
+//setting path for deleting task
+app.get('/delete-task',(req,res)=>{
+    //console.log(req.body);
+    taskList=taskList.filter((task)=>{
+        return task.status==false;
+    });
+    return res.redirect('/');
+})
 //Listening to the port
 app.listen(port,(err)=>{
     if(err){
