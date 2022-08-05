@@ -1,15 +1,123 @@
 body{
     margin: 0;
     background-color: rgb(91, 91, 91);
+    font-family: sans-serif;
 }
-.center {
+.main {
     margin: auto;
     width: 60%;
     border: 3px solid green;
     padding: 10px;
-    background-color: azure;
+    background-color: rgb(255, 255, 255);
 }
-
+hr{
+    margin:0px;
+    padding: 0px;
+    width: 100%;
+}
+/*Css to input form*/
+.center{
+    text-align: center;
+}
+#header{
+    margin-bottom:10px;
+}
+#description{
+    display: flex;
+    flex-direction: column;
+    padding:5px;
+}
+#description:focus-within ,#category:focus-within,#date:focus-within{
+    background-color: rgb(227, 227, 227);
+}
+label{
+    font-size: 0.7rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+    width:100%;
+}
+#description >input[type=text]{
+    width: 100%;
+    display: inline-block;
+    border:none;
+    box-sizing: border-box;  
+    font-size: 1rem; 
+}
+input:focus{
+    outline: none;
+    background: transparent;
+}
+#category-date{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#category-date > div:nth-child(odd){
+    display: flex;
+    flex-direction: column;
+    width:49%;
+    padding: 8px 5px;
+}
+.verticalLine {
+    width:0px;
+    height: auto;
+    border-right:1px solid grey;
+ }
+#category-date input,#category-date select{
+    outline: none;
+    border:none;
+    background-color: inherit;
+}
+/*-Submit and delete button-*/
+.button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:15px;
+    margin-top: 12px;
+}
+.button > button{
+    display: inline-block;
+    border-radius: 5px;
+    color: #eeeeee;
+    text-align: center;
+    padding:10px;
+    width: auto;
+    transition: all 0.5s;
+    cursor: pointer;
+    font-size: 0.85rem;;
+    border:none;
+}
+#submit{
+    background-color:rgb(72, 72, 72);
+}
+#delete{
+    background-color: red;
+}
+button span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+}
+button span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+}
+#submit:hover,#delete:hover{
+    background-color: #456e6d;
+}
+button:hover span {
+    padding-right: 20px;
+}
+button:hover span:after {
+    opacity: 1;
+    right: 0;
+}
 /* Css to list of Tasks */
 #container{
     width: 100%;
@@ -17,7 +125,8 @@ body{
 }
 #container > ul{
     list-style: none;
-    margin-left:-15px;
+    list-style-position: none;
+    margin-left:-35px;
 }
 #container > ul > li{
     padding: 10px;
@@ -27,7 +136,11 @@ body{
     position: relative;
     gap: 10px;
 }
-a,  a:hover, a:visited, a:active, a:focus{
+.completed i{
+    color:green;
+}
+
+a,a:hover, a:visited, a:active, a:focus{
     text-decoration: none;
     color: inherit;
 } 
@@ -41,6 +154,9 @@ a,  a:hover, a:visited, a:active, a:focus{
     margin: 0;
     padding: 0;
 }
+.strike{
+    text-decoration: line-through;
+}
 #priority{
     position: absolute;
     right:10px;
@@ -48,26 +164,32 @@ a,  a:hover, a:visited, a:active, a:focus{
 }
 /* Css to Category section for ith list*/
 #priority div{
-    width:100px;
+    width:80px;
     height:30px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap:10px;
+    gap:5px;
+    border-radius: 8px;
+    padding-left: 6px;
+    padding-right: 6px;
 }
 #priority div>p{
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
 }
 .work {
     background-color: blue;
+    color:White;
 }
 .college{
     background-color: green;
+    color:aliceblue;
 }
 .family{
     background-color: red;
+    color:antiquewhite;
 }
 .personal{
     background-color: yellow;

@@ -11,64 +11,94 @@
 </head>
 
 <body>
-    <div class="center">
-        <h1>TODO App</h1>
+    <div class="main">
+        <h1 class="center" id="header">TODO App</h1>
+        <hr>
         <!--Form to take Input-->
         <form action="/create-task" method="post">
             <!--Description-->
-            <label for="name">Description</label>
-            <input required type="text" name="name" id="name" placeholder="What do u want to do?">
-            <div>
-                <!--Category-->
-                <label for="category">Category</label>
-                <select name="category" id="category">
-                    <option value="" selected>Select a category</option>
-                    <option value="work">Work</option>
-                    <option value="college">College</option>
-                    <option value="family">Family</option>
-                    <option value="personal">Personal</option>
-                </select>
-                <!--Due Date-->
-                <label for="date">Due Date</label>
-                <input required type="date" name="date" id="date">
+            <div id="description">
+                <label for="name">DESCRIPTION</label>
+                <input required type="text" name="name" id="name" placeholder="What do u want to do?">
             </div>
+            <hr>
+            <div id="category-date">
+                <!--Category-->
+                <div id="category">
+                    <label for="category">CATEGORY</label>
+                    <select name="category" class="dropdown">
+                        <option value="" selected>Select a category</option>
+                        <option value="work">Work</option>
+                        <option value="college">College</option>
+                        <option value="family">Family</option>
+                        <option value="personal">Personal</option>
+                    </select>
+                    </td>
+                </div>
+                <div class="verticalLine">
+                </div>
+                <!--Due Date-->
+                <div id="date"><label for="date">DUE DATE</label>
+                    <input required type="date" name="date" id="date">
+                </div>
+            </div>
+            <hr>
             <!--Submit Button-->
-            <button type="submit">Add Task</button>
-            <!--Delete task which are completed-->
-            <button type="button" id="delete"><a href="/delete-task">Delete Tasks</a></button>
+            <div class="button">
+                <button type="submit" id="submit"><span><i class="fa-solid fa-plus"></i>&nbsp;ADD TASK</span></button>
+                <!--Delete task which are completed-->
+                <button type="button" id="delete"><a href="/delete-task"><span><i
+                                class="fa-solid fa-trash"></i>&nbsp;DELETE TASKS</a></span></button>
+            </div>
         </form>
         <!--List of Tasks-->
         <div id="container">
-            <ul >
+            <ul>
                 <% for(i of Task_list){ %>
-                    <li >
+                    <hr>
+                    <li>
                         <div id="checkbox">
                             <% if(i.status){ %>
-                                <a href="/update-task/?id=<%=i.id%>" class="completed"><i class="fa-solid fa-square-check"></i></a>
+                                <a href="/update-task/?id=<%=i._id%>" class="completed"><i class="fa-solid fa-square-check"></i></a>
                             <% } else{ %>
-                                <a href="/update-task/?id=<%=i.id%>"><i class="fa-solid fa-square"></i></a>
+                                    <a href="/update-task/?id=<%=i._id%>"><i class="fa-solid fa-square"></i></a>
                             <% } %>
                         </div>
                         <div id="date-name">
-                            <p><%= i.name %></p>
-                            <!--Converting date using moment-->
-                            <p><%= moment(i.date).format('ll'); %></p>
+                            <!--When task is mark completed then strikethrough text appears-->
+                            <% if(i.status){ %>
+                                <p class="strike">
+                                    <%= i.name %>
+                                </p>
+                                <p class="strike">
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <%= i.date%>
+                                </p>
+                            <% } else{ %>
+                                <p>
+                                    <%= i.name %>
+                                </p>
+                                <p>
+                                    <i class="fa-solid fa-calendar-days"></i>
+                                    <%= i.date%>
+                                </p>
+                            <% }%>
                         </div>
                         <div id="priority">
                             <% if(i.category=="work" ){ %>
                                 <div class="work">
                                     <p>Work</p>
-                                <i class="fas fa-briefcase"></i>
+                                    <i class="fas fa-briefcase"></i>
                                 </div>
                             <% } else if(i.category=="college" ){ %>
                                 <div class="college">
                                     <p>College</p>
-                                <i class="fas fa-book-reader"></i>
+                                    <i class="fas fa-book-reader"></i>
                                 </div>
                             <% } else if(i.category=="family" ){ %>
                                 <div class="family">
                                     <p>Family</p>
-                                <i class="fas fa-home"></i>
+                                    <i class="fas fa-home"></i>
                                 </div>
                             <% } else if(i.category=="personal" ){ %>
                                 <div class="personal">
@@ -77,18 +107,12 @@
                                 </div>
                             <% } %>
                         </div>
+
                     </li>
                     <% } %>
             </ul>
         </div>
     </div>
-    <script>
-        //Function to convert date into specifed format
-        function convertDate(date) {
-            var date = new Date(date);
-            return date.toDateString();
-        }
-    </script>
 </body>
 
 </html>
