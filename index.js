@@ -2,14 +2,9 @@ const express=require('express');
 const moment=require('moment');
 const app=express();
 const port=3000;
+//Imprt db and schema
 const db=require('./config/mongoose');
 const Task=require('./models/task');
-//datastucture to store list of tasks
-var taskList=[
-    {id:1,name:'Why not to add task?',status:true,category:'work',date:'May 1, 2022'},
-    {id:2,name:'Lets make TODO App',status:false,category:'college',date:'May 1, 2022'},
-    {id:3,name:'Get vegetables',status:true,category:'family',date:'May 1, 2022'},
-];
 //setting view engine to ejs
 app.set('view engine','ejs');
 app.set('views','./views');
@@ -32,9 +27,9 @@ app.get('/',(req,res)=>{
 //setting path for adding task
 app.post('/create-task',(req,res)=>{
     Task.create({
-        name:req.body.name.charAt(0).toUpperCase()+req.body.name.slice(1),
+        name:req.body.name.charAt(0).toUpperCase()+req.body.name.slice(1),  //capitalizing first letter of name
         category:req.body.category,
-        date:(moment(req.body.date).format('ll')).toString(), 
+        date:(moment(req.body.date).format('ll')).toString(),  //moment libaration is used to convert date dd/mm/yyyy to month dd,yyyy
         status:false
     },(err,newTask)=>{
         if(err){
@@ -45,7 +40,7 @@ app.post('/create-task',(req,res)=>{
         return res.redirect('back');
     })
 });
-//setting path for marking toggling task status
+//setting path for toggling task status
 app.get('/update-task',(req,res)=>{
     Task.findById(req.query.id,(err,task)=>{
         task.status=!task.status;
@@ -71,6 +66,7 @@ app.get('/delete-task',(req,res)=>{
     })
 })
 //Setting for sorting tasks
+//This Sort List By their date in ascending order
 app.get('/sort-by-date',(req,res)=>{
     Task.find({},(err,tasks)=>{
         if(err){
@@ -82,6 +78,7 @@ app.get('/sort-by-date',(req,res)=>{
         });
     }).sort({date:1});
 })
+//This Sort List By their name
 app.get('/sort-by-name',(req,res)=>{
     Task.find({},(err,tasks)=>{
         if(err){
@@ -92,6 +89,10 @@ app.get('/sort-by-name',(req,res)=>{
             Task_list:tasks
         });
     }).sort({name:1});
+})
+//This brings original list
+app.get('/keep-same',(req,res)=>{
+    return res.redirect('/');
 })
 //Listening to the port
 app.listen(port,(err)=>{

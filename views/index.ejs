@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO App</title>
+    <!--Css-->
     <link rel="stylesheet" href="/css/style.css">
+    <!--Font Awesome for icons-->
     <script src="https://kit.fontawesome.com/8d8b4be0c6.js" crossorigin="anonymous"></script>
 </head>
 
@@ -43,27 +45,29 @@
                 </div>
             </div>
             <hr>
-            <!--Submit Button-->
             <div class="button">
+                <!--Submit Button-->
                 <button type="submit" id="submit"><span><i class="fa-solid fa-plus"></i>&nbsp;ADD TASK</span></button>
                 <!--Delete task which are completed-->
-                <button type="button" id="delete"><a href="/delete-task"><span><i
-                                class="fa-solid fa-trash"></i>&nbsp;DELETE TASKS</a></span></button>
+                <button type="button" id="delete"><a href="/delete-task"><span><i class="fa-solid fa-trash"></i>&nbsp;DELETE TASKS</a></span></button>
             </div>
         </form>
+        <!--A dropdown For Filtering list by date, by name -->
+        <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn"><i class="fa-solid fa-filter"></i> Filter</button>
+            <div id="myDropdown" class="dropdown-content">
+              <a href="/sort-by-date">Sort By Date</a>
+              <a href="/sort-by-name">Sort By Name</a>
+              <a href="/keep-same">Bring Back</a>
+            </div>
+        </div> 
         <!--List of Tasks-->
         <div id="container">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn">Dropdown</button>
-                <div id="myDropdown" class="dropdown-content">
-                  <a href="/sort-by-date">Sort By Date</a>
-                  <a href="/sort-by-name">Sort By Name</a>
-                </div>
-              </div> 
             <ul>
                 <% for(i of Task_list){ %>
                     <hr>
                     <li>
+                        <!--Checkbox-->
                         <div id="checkbox">
                             <% if(i.status){ %>
                                 <a href="/update-task/?id=<%=i._id%>" class="completed"><i class="fa-solid fa-square-check"></i></a>
@@ -71,6 +75,7 @@
                                     <a href="/update-task/?id=<%=i._id%>"><i class="fa-solid fa-square"></i></a>
                             <% } %>
                         </div>
+                        <!--Date and Name-->
                         <div id="date-name">
                             <!--When task is mark completed then strikethrough text appears-->
                             <% if(i.status){ %>
@@ -91,6 +96,7 @@
                                 </p>
                             <% }%>
                         </div>
+                        <!--Category-->
                         <div id="priority">
                             <% if(i.category=="work" ){ %>
                                 <div class="work">
@@ -114,12 +120,12 @@
                                 </div>
                             <% } %>
                         </div>
-
                     </li>
                     <% } %>
             </ul>
         </div>
     </div>
+    <!--Script for dropdown-->
     <script src="/js/home.js"></script>
 </body>
 
