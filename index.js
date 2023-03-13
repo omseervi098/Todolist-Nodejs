@@ -9,7 +9,9 @@ const Task=require('./models/task');
 app.set('view engine','ejs');
 app.set('views','./views');
 //setting up body parser
-app.use(express.urlencoded());
+app.use(express.urlencoded(
+    {extended:true
+    }));
 //setting assets folder as static folder
 app.use(express.static('./assets'));
 //setting root path
