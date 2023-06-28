@@ -1,7 +1,9 @@
 const express=require('express');
 const moment=require('moment');
 const app=express();
-const port=3000;
+const dotenv=require('dotenv');
+dotenv.config();
+const port=process.env.PORT;
 //Imprt db and schema
 const db=require('./config/mongoose');
 const Task=require('./models/task');
