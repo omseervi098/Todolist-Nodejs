@@ -1,7 +1,9 @@
 //Require library mongoose
+const dotenv=require('dotenv');
+dotenv.config();
 const mongoose=require('mongoose');
 //Connect to mongoose
-mongoose.connect(`mongodb://0.0.0.0:$PORT/todo_app`,{useNewUrlParser:true});
+mongoose.connect(process.env.MONGODB_URL,{useNewUrlParser:true});
 //Acquire Connection
 const connection=mongoose.connection;
 //Check Connection
